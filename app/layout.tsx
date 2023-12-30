@@ -2,15 +2,16 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 import { Toaster } from "@/components/ui/sonner";
-import { cn } from "@/lib/utils";
+import { ThemeProvider } from "@/components/theme-provider";
+import { cn } from "@/lib/cn";
 
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "tl:dr;",
-  description: "Time is money - summarize everything",
+  title: "Biblio",
+  description: "Your pocket library assistant",
 };
 
 export default function RootLayout({
@@ -21,7 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(inter.className, "p-4")}>
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="dark">
+          {children}
+        </ThemeProvider>
         <Toaster position="bottom-center" />
       </body>
     </html>
