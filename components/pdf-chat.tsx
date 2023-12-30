@@ -18,7 +18,7 @@ export type Message = {
   sourceDocs?: Document[];
 };
 
-const PDFSummarizer = () => {
+const PDFChat = () => {
   const [query, setQuery] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -69,7 +69,7 @@ const PDFSummarizer = () => {
     setQuery("");
 
     try {
-      const response = await fetch("/api/summary/pdf", {
+      const response = await fetch("/api/chat/pdf", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -215,4 +215,4 @@ const PDFSummarizer = () => {
   );
 };
 
-export default PDFSummarizer;
+export default PDFChat;

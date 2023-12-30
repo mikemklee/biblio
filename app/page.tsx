@@ -1,6 +1,6 @@
 "use client";
 
-import PDFSummarizer from "@/components/pdf-summarizer";
+import PDFChat from "@/components/pdf-chat";
 
 export default function Home() {
   return (
@@ -13,7 +13,7 @@ export default function Home() {
         </div>
       </div>
       <section>
-        <PDFSummarizer />
+        <PDFChat />
       </section>
       <section className="mt-auto text-sm text-center">
         by{" "}

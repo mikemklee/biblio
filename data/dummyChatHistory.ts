@@ -1,4 +1,4 @@
-import { Message } from "@/components/pdf-summarizer";
+import { Message } from "@/components/pdf-chat";
 
 export const DUMMY_MESSAGES_DEFAULT = [
   {
