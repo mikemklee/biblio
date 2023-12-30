@@ -7,6 +7,10 @@ body {
   height: 100%;
 }
 
+.logo {
+  font-family: "Righteous", sans-serif;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

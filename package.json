@@ -11,6 +11,7 @@
     "ingest": "tsx scripts/ingest-data.ts"
   },
   "dependencies": {
+    "@fontsource/righteous": "^5.0.18",
     "@pinecone-database/pinecone": "^1.1.2",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-dropdown-menu": "^2.0.6",

@@ -4,27 +4,11 @@ import PDFChat from "@/components/pdf-chat";
 
 export default function Home() {
   return (
-    <div className="max-w-xl mx-auto flex flex-col min-h-full gap-4 pt-10 pb-10">
-      <div>
-        <div className="space-y-1">
-          <h1 className="text-5xl font-extrabold tracking-tight">
-            Chat with Biblio
-          </h1>
-        </div>
+    <div>
+      <div className="bg-background max-w-xl mx-auto sticky top-0 py-6 z-10">
+        <span className="text-5xl tracking-tight logo">Biblio</span>
       </div>
-      <section>
-        <PDFChat />
-      </section>
-      <section className="mt-auto text-sm text-center">
-        by{" "}
-        <a
-          href="https://github.com/mikemklee"
-          className="font-semibold hover:underline"
-          target="_blank"
-        >
-          @mikemklee
-        </a>
-      </section>
+      <PDFChat />
     </div>
   );
 }

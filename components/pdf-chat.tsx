@@ -9,7 +9,10 @@ import {
 } from "./ui/accordion";
 import { cn } from "@/lib/cn";
 import { Textarea } from "./ui/textarea";
-import { DUMMY_MESSAGES } from "@/data/dummyChatHistory";
+import {
+  DUMMY_MESSAGES,
+  DUMMY_MESSAGES_DEFAULT,
+} from "@/data/dummyChatHistory";
 
 export type Message = {
   type: "apiMessage" | "userMessage";
@@ -28,6 +31,7 @@ const PDFChat = () => {
     history: [string, string][];
     pendingSourceDocs?: Document[];
   }>({
+    // messages: DUMMY_MESSAGES_DEFAULT,
     messages: DUMMY_MESSAGES,
     history: [],
   });
@@ -110,8 +114,8 @@ const PDFChat = () => {
     }
   }
 
-  //prevent empty submissions
   const handleEnter = (e: any) => {
+    //prevent empty submissions
     if (e.key === "Enter" && query) {
       handleSubmit(e);
     } else if (e.key == "Enter") {
@@ -120,26 +124,27 @@ const PDFChat = () => {
   };
 
   return (
-    <div className="mx-auto flex flex-col gap-4">
-      <main className="">
-        <div ref={messageListRef} className="flex flex-col justify-stretch">
-          {messages.map((message, index) => {
-            return (
-              <div
-                key={`chatMessage-${index}`}
-                className={cn(
-                  "p-5 mb-4 rounded-lg text-sm w-full max-w-[32rem]",
-                  message.type === "apiMessage"
-                    ? "bg-muted self-start"
-                    : "bg-primary self-end"
-                )}
-              >
-                <div className="text-sm">
-                  <ReactMarkdown className="prose text-sm text-white">
-                    {message.message}
-                  </ReactMarkdown>
-                </div>
-                {/* {message.sourceDocs && (
+    <>
+      <div className="max-w-xl mx-auto flex flex-col gap-4 h-full">
+        <main className="relative h-full">
+          <div ref={messageListRef} className="flex flex-col justify-stretch">
+            {messages.map((message, index) => {
+              return (
+                <div
+                  key={`chatMessage-${index}`}
+                  className={cn(
+                    "p-5 mb-4 rounded-lg text-sm w-full max-w-[32rem]",
+                    message.type === "apiMessage"
+                      ? "bg-muted self-start"
+                      : "bg-primary self-end"
+                  )}
+                >
+                  <div className="text-sm">
+                    <ReactMarkdown className="prose text-sm text-white">
+                      {message.message}
+                    </ReactMarkdown>
+                  </div>
+                  {/* {message.sourceDocs && (
                     <div className="py-4" key={`sourceDocsAccordion-${index}`}>
                       <Accordion type="single" collapsible className="flex-col">
                         {message.sourceDocs.map((doc, index) => (
@@ -172,46 +177,52 @@ const PDFChat = () => {
                       </Accordion>
                     </div>
                   )} */}
-              </div>
-            );
-          })}
-        </div>
-        <div>
-          <form onSubmit={handleSubmit}>
-            <Textarea
-              disabled={loading}
-              onKeyDown={handleEnter}
-              ref={textAreaRef}
-              autoFocus={false}
-              rows={1}
-              maxLength={512}
-              id="userInput"
-              name="userInput"
-              placeholder={
-                loading ? "Waiting for response..." : "Chat with Biblio"
-              }
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-            <button type="submit" disabled={loading}>
-              {loading ? (
-                <div>loading...</div>
-              ) : (
-                // Send icon SVG in input field
-                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
-                </svg>
-              )}
-            </button>
-          </form>
-        </div>
-      </main>
-      {error && (
-        <div className="border border-red-400 rounded-md p-2 bg-red-50 text-sm">
-          <p className="text-red-500">{error}</p>
-        </div>
-      )}
-    </div>
+                </div>
+              );
+            })}
+          </div>
+        </main>
+        {error && (
+          <div className="border border-red-400 rounded-md p-2 bg-red-50 text-sm">
+            <p className="text-red-500">{error}</p>
+          </div>
+        )}
+      </div>
+
+      {/* Sticky footer for message input */}
+      <div
+        className="fixed bottom-0 w-full max-w-xl inset-x-0 mx-auto
+          bg-gradient-to-t from-background via-background via-70% to-transparent py-8"
+      >
+        <form onSubmit={handleSubmit} className="">
+          <Textarea
+            disabled={loading}
+            onKeyDown={handleEnter}
+            ref={textAreaRef}
+            autoFocus={false}
+            rows={1}
+            maxLength={512}
+            id="userInput"
+            name="userInput"
+            placeholder={
+              loading ? "Waiting for response..." : "Chat with Biblio"
+            }
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          {/* <button type="submit" disabled={loading}>
+            {loading ? (
+              <div>loading...</div>
+            ) : (
+              // Send icon SVG in input field
+              <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
+              </svg>
+            )}
+          </button> */}
+        </form>
+      </div>
+    </>
   );
 };
 
